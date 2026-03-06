@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ManuFlow ERP v6.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════
+   MANUFLOW ERP v6.0 — DESIGN SYSTEM
+   Industrial Precision meets Digital Clarity
+═══════════════════════════════════════════════════ */
+:root{
+  --ink:#0d1b2a; --ink2:#1e3a5f; --ink3:#2d5a8e; --ink4:#4a7db5;
+  --sky:#e8f4fd; --sky2:#d0e8f8; --sky3:#b3d9f5;
+  --mint:#00b894; --mint-bg:#e6faf6;
+  --amber:#f39c12; --amber-bg:#fef9ec;
+  --rose:#e74c3c; --rose-bg:#fdecea;
+  --violet:#8e44ad; --violet-bg:#f5eef8;
+  --slate:#f0f4f8; --slate2:#e2e8f0; --slate3:#cbd5e1;
+  --white:#ffffff; --shadow:0 1px 3px rgba(13,27,42,.08),0 4px 16px rgba(13,27,42,.06);
+  --shadow-lg:0 8px 32px rgba(13,27,42,.14),0 2px 8px rgba(13,27,42,.08);
+  --radius:10px; --radius-sm:6px; --radius-lg:14px;
+  --font:'Plus Jakarta Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+  --nav-w:240px; --top-h:58px;
+  --transition:.15s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--slate);color:var(--ink);overflow:hidden;height:100vh}
+/* SCROLLBARS */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--slate3);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:var(--ink4)}
+/* TOPBAR */
+#topbar{position:fixed;top:0;left:0;right:0;height:var(--top-h);background:var(--ink);z-index:900;display:flex;align-items:center;gap:0;border-bottom:1px solid rgba(255,255,255,.06)}
+.tb-brand{display:flex;align-items:center;gap:10px;padding:0 18px;width:var(--nav-w);border-right:1px solid rgba(255,255,255,.08)}
+.tb-logo-mark{width:32px;height:32px;background:linear-gradient(135deg,#4a9eff,#1565C0);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px;letter-spacing:-.5px}
+.tb-brand-text{flex:1} .tb-brand-name{color:#fff;font-size:13.5px;font-weight:700;letter-spacing:-.2px}
+.tb-brand-ver{color:rgba(255,255,255,.35);font-size:10px;font-family:var(--mono);margin-top:1px}
+.tb-center{flex:1;display:flex;align-items:center;padding:0 16px;gap:4px;overflow-x:auto}
+.tb-center::-webkit-scrollbar{height:0}
+.tb-dept-btn{display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer;color:rgba(255,255,255,.5);font-size:12px;font-weight:500;transition:var(--transition);white-space:nowrap;border:none;background:transparent;font-family:var(--font)}
+.tb-dept-btn:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.07)}
+.tb-dept-btn.on{color:#fff;background:rgba(255,255,255,.14)}
+.tb-dept-btn .di{font-size:14px}
+.tb-right{display:flex;align-items:center;gap:6px;padding:0 14px;border-left:1px solid rgba(255,255,255,.08)}
+.tb-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);padding:6px 12px;transition:var(--transition)}
+.tb-search:focus-within{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.2)}
+.tb-search input{background:none;border:none;outline:none;color:#fff;font-size:12px;width:170px;font-family:var(--font)}
+.tb-search input::placeholder{color:rgba(255,255,255,.3)}
+.tb-search .si{color:rgba(255,255,255,.4);font-size:13px}
+.icon-btn{width:34px;height:34px;border-radius:var(--radius-sm);background:rgba(255,255,255,.07);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:15px;transition:var(--transition);position:relative}
+.icon-btn:hover{background:rgba(255,255,255,.13);color:#fff}
+.icon-btn .badge{position:absolute;top:-3px;right:-3px;background:var(--rose);color:#fff;border-radius:10px;font-size:9px;padding:1px 4px;font-weight:700;min-width:16px;text-align:center;font-family:var(--mono)}
+.tb-user{display:flex;align-items:center;gap:9px;cursor:pointer;padding:5px 8px;border-radius:var(--radius-sm);transition:var(--transition)}
+.tb-user:hover{background:rgba(255,255,255,.08)}
+.avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;flex-shrink:0}
+.tb-uinfo{line-height:1.3} .tb-uname{color:#fff;font-size:12px;font-weight:600} .tb-urole{color:rgba(255,255,255,.4);font-size:10px}
+/* LAYOUT */
+#app-layout{display:flex;height:100vh;padding-top:var(--top-h)}
+/* SIDEBAR */
+#sidebar{width:var(--nav-w);background:var(--white);border-right:1px solid var(--slate2);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.sb-section-label{padding:14px 16px 6px;font-size:10px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.8px}
+.sb-list{padding:0 8px;flex:1;overflow-y:auto}
+.sb-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12.5px;color:#4a5568;transition:var(--transition);margin-bottom:1px;user-select:none}
+.sb-item:hover{background:var(--sky);color:var(--ink2)}
+.sb-item.on{background:var(--ink2);color:#fff;font-weight:600}
+.sb-item .si{width:18px;text-align:center;font-size:13px;flex-shrink:0}
+.sb-item .sc{margin-left:auto;background:var(--slate);border-radius:10px;font-size:10px;padding:1px 6px;color:#6b7280;font-family:var(--mono)}
+.sb-item.on .sc{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7)}
+/* SHEET LINKS */
+.sb-links{border-top:1px solid var(--slate2);padding:10px 8px 12px}
+.sb-links-title{padding:4px 8px 6px;font-size:10px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.8px}
+.sheet-link{display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:11.5px;color:#4a5568;text-decoration:none;transition:var(--transition);margin-bottom:1px}
+.sheet-link:hover{background:var(--sky);color:var(--ink2)}
+.sl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sl-rows{margin-left:auto;font-size:10px;color:#9ca3af;font-family:var(--mono)}
+/* MAIN */
+#main-area{flex:1;overflow:hidden;display:flex;flex-direction:column}
+#content-area{flex:1;overflow-y:auto;padding:20px}
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius);box-shadow:var(--shadow)}
+/* PAGE HEADER */
+.page-hdr{display:flex;align-items:flex-start;gap:12px;margin-bottom:18px}
+.page-hdr-left{flex:1}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#9ca3af;margin-bottom:4px}
+.breadcrumb .bc-dept{color:var(--ink3);font-weight:600}
+.page-title{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.3px}
+.page-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);font-size:12.5px;font-weight:600;cursor:pointer;border:none;transition:var(--transition);white-space:nowrap;font-family:var(--font);letter-spacing:-.1px}
+.btn-primary{background:var(--ink2);color:#fff} .btn-primary:hover{background:var(--ink)}
+.btn-ghost{background:transparent;color:var(--ink2);border:1.5px solid var(--slate2)} .btn-ghost:hover{border-color:var(--ink3);background:var(--sky)}
+.btn-success{background:var(--mint);color:#fff} .btn-success:hover{background:#00a381}
+.btn-danger{background:var(--rose);color:#fff} .btn-danger:hover{background:#c0392b}
+.btn-sm{padding:5px 10px;font-size:11.5px}
+.btn-icon{width:30px;height:30px;padding:0;justify-content:center;border-radius:var(--radius-sm)}
+/* FILTER BAR */
+.filter-bar{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius);padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.fl{font-size:11.5px;font-weight:600;color:#6b7280;white-space:nowrap}
+.fi{padding:6px 10px;border:1.5px solid var(--slate2);border-radius:var(--radius-sm);font-size:12px;color:var(--ink);background:var(--slate);font-family:var(--font);outline:none;transition:var(--transition)}
+.fi:focus{border-color:var(--ink3);background:var(--white)}
+.fsearch{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:var(--slate);border:1.5px solid var(--slate2);border-radius:var(--radius-sm);padding:6px 10px;transition:var(--transition)}
+.fsearch:focus-within{border-color:var(--ink3);background:var(--white)}
+.fsearch input{flex:1;border:none;outline:none;font-size:12px;background:none;color:var(--ink);font-family:var(--font)}
+.status-pills{display:flex;gap:4px;flex-wrap:wrap}
+.spill{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--slate2);background:var(--white);color:#6b7280;transition:var(--transition)}
+.spill:hover{border-color:var(--ink3);color:var(--ink2)}
+.spill.on{background:var(--ink2);border-color:var(--ink2);color:#fff}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.stat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.stat-val{font-size:22px;font-weight:800;color:var(--ink);font-family:var(--mono);line-height:1}
+.stat-lbl{font-size:11px;color:#6b7280;font-weight:500;margin-top:2px}
+/* TABLE */
+.tbl-card{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.tbl-wrap{overflow-x:auto;max-height:calc(100vh - 360px)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--slate);border-bottom:2px solid var(--slate2)}
+th{padding:9px 12px;text-align:left;font-size:10.5px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;cursor:pointer;position:sticky;top:0;background:var(--slate);z-index:1;user-select:none}
+th:hover{color:var(--ink2)}
+td{padding:8px 12px;border-bottom:1px solid var(--slate);color:#374151;vertical-align:middle;white-space:nowrap}
+tr:hover td{background:#fafbfc}
+tr:last-child td{border-bottom:none}
+.tbl-footer{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--slate2);background:var(--slate)}
+.tbl-footer span{font-size:11.5px;color:#6b7280}
+/* STATUS CHIPS */
+.chip{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.chip::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block}
+.c-green{background:var(--mint-bg);color:#00805f}
+.c-amber{background:var(--amber-bg);color:#9a6200}
+.c-red{background:var(--rose-bg);color:#b71c1c}
+.c-blue{background:var(--sky2);color:var(--ink2)}
+.c-violet{background:var(--violet-bg);color:var(--violet)}
+.c-gray{background:var(--slate2);color:#4a5568}
+/* DASHBOARD */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius-lg);padding:18px;position:relative;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:var(--transition)}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--sky3)}
+.kpi-accent{position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.kpi-v{font-size:26px;font-weight:800;color:var(--ink);font-family:var(--mono);line-height:1;letter-spacing:-1px}
+.kpi-l{font-size:12px;color:#6b7280;font-weight:500;margin-top:4px}
+.kpi-s{font-size:11px;color:#9ca3af;margin-top:6px;line-height:1.4}
+/* CHARTS */
+.dash-row2{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.chart-card{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow)}
+.chart-card h3{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:120px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:100%;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--ink3),var(--ink));min-height:4px;transition:height .6s cubic-bezier(.4,0,.2,1)}
+.bar-val{font-size:9px;color:#9ca3af;font-family:var(--mono);text-align:center}
+.bar-lbl{font-size:9.5px;color:#6b7280;font-family:var(--mono);text-align:center}
+/* DEPT OVERVIEW */
+.dept-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--slate)}
+.dept-row:last-child{border-bottom:none}
+.dept-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dept-name{font-size:12.5px;font-weight:600;color:var(--ink);min-width:90px}
+.dept-bar-bg{flex:1;background:var(--slate2);border-radius:10px;height:5px;overflow:hidden}
+.dept-bar-fill{height:5px;border-radius:10px}
+.dept-metric{font-size:11.5px;font-family:var(--mono);color:#4a5568;min-width:70px;text-align:right}
+/* ALERTS */
+.alert-item{padding:10px 14px;border-radius:var(--radius-sm);margin-bottom:6px;display:flex;gap:10px}
+.ai-high{background:#fff5f5;border-left:3px solid var(--rose)}
+.ai-med{background:#fffbeb;border-left:3px solid var(--amber)}
+.ai-low{background:#f0fdf4;border-left:3px solid var(--mint)}
+.ai-icon{font-size:14px;margin-top:1px;flex-shrink:0}
+.ai-msg{font-size:12px;color:var(--ink);line-height:1.4}
+.ai-meta{font-size:10.5px;color:#9ca3af;margin-top:2px}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,27,42,.4);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .12s ease;backdrop-filter:blur(2px)}
+.modal{background:var(--white);border-radius:var(--radius-lg);width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 25px 80px rgba(13,27,42,.3),0 8px 24px rgba(13,27,42,.15);animation:slideUp .18s cubic-bezier(.4,0,.2,1)}
+.modal-sm{max-width:420px} .modal-md{max-width:620px} .modal-lg{max-width:820px} .modal-xl{max-width:1060px}
+.modal-hdr{padding:16px 20px;border-bottom:1px solid var(--slate2);display:flex;align-items:center;gap:10px;background:var(--slate)}
+.modal-hdr h3{font-size:14.5px;font-weight:700;color:var(--ink);flex:1}
+.modal-body{padding:20px;overflow-y:auto;flex:1}
+.modal-ftr{padding:14px 20px;border-top:1px solid var(--slate2);display:flex;justify-content:flex-end;gap:8px;background:var(--slate)}
+/* FORMS */
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.fgl{font-size:11.5px;font-weight:600;color:#374151}
+.fgc{padding:7px 10px;border:1.5px solid var(--slate2);border-radius:var(--radius-sm);font-size:12.5px;color:var(--ink);background:var(--white);font-family:var(--font);outline:none;transition:var(--transition);width:100%}
+.fgc:focus{border-color:var(--ink3)}
+.fgc:disabled{background:var(--slate);color:#9ca3af}
+textarea.fgc{resize:vertical;min-height:65px}
+.form-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.form-row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+/* MULTI ITEM TABLE */
+.mit-wrap{border:1.5px solid var(--slate2);border-radius:var(--radius);overflow:hidden;margin-top:8px}
+.mit-wrap th{background:var(--sky);color:var(--ink2);font-size:10.5px}
+.mit-wrap td{padding:5px 6px}
+.mit-inp{padding:5px 7px;border:1.5px solid var(--slate2);border-radius:5px;font-size:11.5px;color:var(--ink);background:var(--white);font-family:var(--font);outline:none;width:100%;transition:var(--transition)}
+.mit-inp:focus{border-color:var(--ink3)}
+.add-row-btn{background:var(--sky);border-top:1px dashed var(--sky3);padding:8px 12px;display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--ink2);font-size:12px;font-weight:600;transition:var(--transition)}
+.add-row-btn:hover{background:var(--sky2)}
+.mit-footer{background:var(--slate);border-top:1px solid var(--slate2);padding:8px 12px;display:flex;justify-content:flex-end;gap:20px;align-items:center}
+.mit-footer span{font-size:12px;color:#374151}
+.del-btn{width:24px;height:24px;border-radius:5px;background:var(--rose-bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--rose);font-size:12px;transition:var(--transition)}
+.del-btn:hover{background:var(--rose);color:#fff}
+/* IT USER CARDS */
+.user-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.user-card{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius);padding:16px;display:flex;gap:12px;transition:var(--transition);box-shadow:var(--shadow)}
+.user-card:hover{border-color:var(--sky3);transform:translateY(-1px)}
+.uc-info{flex:1}
+.uc-name{font-size:13.5px;font-weight:700;color:var(--ink)}
+.uc-meta{font-size:11px;color:#6b7280;margin-top:1px;font-family:var(--mono)}
+.uc-tags{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+/* DEPT LINKS GRID */
+.dl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.dl-card{background:var(--white);border:1px solid var(--slate2);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.dl-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.dl-hdr h4{font-size:13px;font-weight:700;color:var(--ink);flex:1}
+.dl-tab-row{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--slate);border-radius:5px;margin-bottom:3px;font-size:11.5px}
+.dl-tab-name{color:#374151;font-weight:500}
+.dl-tab-rows{font-family:var(--mono);color:#6b7280;font-size:11px}
+/* LOGIN */
+#login-wrap{position:fixed;inset:0;background:linear-gradient(135deg,var(--ink) 0%,#0d2b4e 50%,#0a3d6b 100%);display:flex;align-items:center;justify-content:center;z-index:9999}
+.login-card{background:var(--white);border-radius:18px;width:400px;overflow:hidden;box-shadow:0 32px 100px rgba(0,0,0,.4);animation:slideUp .3s cubic-bezier(.4,0,.2,1)}
+.login-hero{background:linear-gradient(135deg,var(--ink),var(--ink2));padding:32px;text-align:center}
+.login-logo{width:58px;height:58px;border-radius:14px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px}
+.login-hero h1{color:#fff;font-size:21px;font-weight:800;letter-spacing:-.4px}
+.login-hero p{color:rgba(255,255,255,.5);font-size:11.5px;margin-top:4px;font-family:var(--mono)}
+.login-body{padding:28px}
+.login-err{background:var(--rose-bg);color:var(--rose);padding:9px 12px;border-radius:var(--radius-sm);font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.login-btn{width:100%;padding:11px;background:var(--ink2);color:#fff;border:none;border-radius:var(--radius-sm);font-size:13.5px;font-weight:700;cursor:pointer;font-family:var(--font);transition:var(--transition);margin-top:6px;letter-spacing:-.2px}
+.login-btn:hover{background:var(--ink)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.login-link{text-align:center;margin-top:14px;font-size:12px;color:#6b7280}
+.login-link a{color:var(--ink2);cursor:pointer;font-weight:600}
+.login-footer{padding:12px 28px;border-top:1px solid var(--slate2);background:var(--slate);text-align:center;font-size:11px;color:#9ca3af}
+/* LOADING */
+.spin{width:32px;height:32px;border:3px solid var(--slate2);border-top-color:var(--ink2);border-radius:50%;animation:spin .65s linear infinite;flex-shrink:0}
+.spin-sm{width:16px;height:16px;border-width:2px}
+.page-load{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:14px}
+.page-load .load-txt{font-size:12.5px;color:#6b7280;font-weight:500}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:10px}
+.empty-ico{font-size:48px;opacity:.2}
+.empty h3{font-size:15px;font-weight:700;color:#374151}
+.empty p{font-size:12.5px;color:#6b7280;text-align:center;max-width:300px}
+/* TOAST */
+#toast-wrap{position:fixed;bottom:20px;right:20px;z-index:9998;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{padding:10px 16px;border-radius:var(--radius-sm);font-size:12.5px;pointer-events:auto;display:flex;align-items:center;gap:8px;max-width:340px;box-shadow:var(--shadow-lg);animation:slideUp .18s ease;font-weight:500}
+.toast-info{background:var(--ink);color:#fff}
+.toast-success{background:#166534;color:#fff}
+.toast-error{background:#7f1d1d;color:#fff}
+.toast-warn{background:#78350f;color:#fff}
+/* KEYFRAMES */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.page-enter{animation:slideUp .2s cubic-bezier(.4,0,.2,1)}
+/* HELPERS */
+.mono{font-family:var(--mono)} .id-cell{color:var(--ink2);font-family:var(--mono);font-size:11.5px}
+.divider{height:1px;background:var(--slate2);margin:14px 0}
+.info-box{background:var(--sky);border:1px solid var(--sky3);border-radius:var(--radius-sm);padding:10px 13px;font-size:12px;color:var(--ink2)}
+.warn-box{background:var(--amber-bg);border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 13px;font-size:12px;color:#92400e}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<div id="toast-wrap"></div>
+
+<script type="text/babel">
+// ═══════════════════════════════════════════════════
+// MANUFLOW ERP v6.0 — React Application
+// Architecture: React SPA → fetch() → Apps Script API
+// ═══════════════════════════════════════════════════
+const { useState, useEffect, useRef, useCallback, useMemo } = React;
+
+// ── CONFIG ──────────────────────────────────────────
+// IMPORTANT: Replace this URL with your Apps Script Web App URL
+const API_URL = 'https://script.google.com/macros/s/AKfycbyGvL293IRC90dkUJFEz5sH_BDsbjBGXhTCBN98bafZ2AjD4A4y_LSGkZiWxrMTZjdIvA/exec';
+
+const DEPT_INFO = {
+  DASHBOARD:  { label:'Dashboard',   icon:'⬡',  color:'#1e3a5f', bg:'#e8f4fd' },
+  INVENTORY:  { label:'Inventory',   icon:'⬢',  color:'#166534', bg:'#dcfce7' },
+  PURCHASE:   { label:'Purchase',    icon:'⬡',  color:'#9a3412', bg:'#ffedd5' },
+  SALES:      { label:'Sales',       icon:'◈',  color:'#1e40af', bg:'#dbeafe' },
+  FINANCE:    { label:'Finance',     icon:'◆',  color:'#581c87', bg:'#f3e8ff' },
+  HR:         { label:'HR',          icon:'◉',  color:'#065f46', bg:'#d1fae5' },
+  PRODUCTION: { label:'Production',  icon:'⚙',  color:'#9a3412', bg:'#ffedd5' },
+  QUALITY:    { label:'Quality',     icon:'◈',  color:'#831843', bg:'#fce7f3' },
+  IT:         { label:'IT Master',   icon:'⬡',  color:'#1e293b', bg:'#f1f5f9' },
+};
+
+const TABS_INFO = {
+  INVENTORY:  [{k:'RAW',l:'Raw Materials',i:'📦'},{k:'FINISHED',l:'Finished Goods',i:'🏭'},{k:'WIP',l:'WIP',i:'⚙'},{k:'MOVEMENT',l:'Stock Movement',i:'🔄'},{k:'SUPPLIERS',l:'Suppliers',i:'🏪'},{k:'REORDER',l:'Reorder List',i:'⚠'}],
+  PURCHASE:   [{k:'INDENT',l:'Purchase Indent',i:'📋',sp:'indent'},{k:'INDENT_ITEMS',l:'Indent Items',i:'📝'},{k:'PO',l:'Purchase Orders',i:'🛒',sp:'po'},{k:'PO_ITEMS',l:'PO Items',i:'📄'},{k:'GRN',l:'Material Received',i:'📥',sp:'grn'},{k:'GRN_ITEMS',l:'GRN Items',i:'📦'},{k:'VENDORS',l:'Vendor Master',i:'🏢'},{k:'PAYMENT',l:'Payment Due',i:'💳'},{k:'APPROVALS',l:'Approvals',i:'✅'}],
+  SALES:      [{k:'ORDERS',l:'Sales Orders',i:'📑'},{k:'CUSTOMERS',l:'Customer Master',i:'👤'},{k:'QUOTATIONS',l:'Quotations',i:'💬'},{k:'INVOICES',l:'Invoices',i:'🧾'},{k:'TARGETS',l:'Sales Targets',i:'🎯'},{k:'DISPATCH',l:'Dispatch',i:'🚚'}],
+  FINANCE:    [{k:'LEDGER',l:'General Ledger',i:'📒'},{k:'PL',l:'P & L Statement',i:'📈'},{k:'EXPENSES',l:'Expenses',i:'💸'},{k:'BANK',l:'Bank Transactions',i:'🏦'},{k:'GST',l:'GST Returns',i:'📋'},{k:'BUDGET',l:'Budget',i:'🎯'}],
+  HR:         [{k:'EMPLOYEES',l:'Employees',i:'👤'},{k:'ATTENDANCE',l:'Attendance',i:'📅'},{k:'PAYROLL',l:'Payroll',i:'💰'},{k:'LEAVES',l:'Leave Management',i:'🌿'},{k:'RECRUITMENT',l:'Recruitment',i:'🎓'},{k:'TRAINING',l:'Training',i:'📚'}],
+  PRODUCTION: [{k:'WO',l:'Work Orders',i:'⚙'},{k:'DAILY',l:'Daily Output',i:'📊'},{k:'BOM',l:'Bill of Materials',i:'📑'},{k:'MACHINES',l:'Machines',i:'🔧'},{k:'QUALITY',l:'Quality Checks',i:'✅'},{k:'SCHEDULE',l:'Schedule',i:'📅'}],
+  QUALITY:    [{k:'INSPECTION',l:'Inspections',i:'🔍'},{k:'NCR',l:'NCR',i:'⚠'},{k:'SUPPLIER_QC',l:'Supplier QC',i:'🏪'},{k:'CALIBRATION',l:'Calibration',i:'⚖'},{k:'STANDARDS',l:'Standards',i:'📐'}],
+  IT:         [{k:'USERS',l:'Users',i:'👤',sp:'users'},{k:'ROLES',l:'Roles',i:'🔑'},{k:'ASSETS',l:'IT Assets',i:'💻'},{k:'HELPDESK',l:'Help Desk',i:'🎫'},{k:'SOFTWARE',l:'Software',i:'📦'},{k:'ACCESS_LOG',l:'Access Log',i:'📜'},{k:'AUDIT',l:'Audit Trail',i:'🔍'},{k:'DEPT_LINKS',l:'Dept Links',i:'🔗',sp:'deptlinks'},{k:'ALERTS',l:'System Alerts',i:'🚨'},{k:'TOKENS',l:'Reset Tokens',i:'🔐'}],
+};
+
+const STATUS_CLS = {
+  'Active':'c-green','Approved':'c-green','Confirmed':'c-green','Completed':'c-green','Paid':'c-green','Pass':'c-green','Delivered':'c-green','Connected':'c-green','Running':'c-green',
+  'Pending':'c-amber','Draft':'c-amber','Unpaid':'c-amber','New':'c-amber','Open':'c-amber','Pending Approval':'c-amber','In Progress':'c-blue',
+  'Inactive':'c-red','Cancelled':'c-red','Fail':'c-red','Rejected':'c-red','Error':'c-red','Overdue':'c-red','Breakdown':'c-red',
+  'Under Maintenance':'c-blue','Partial':'c-blue','High':'c-red','Medium':'c-amber','Low':'c-green',
+};
+
+// ── API LAYER ─────────────────────────────────────────
+async function apiFetch(params) {
+  const url = new URL(API_URL);
+  Object.entries(params).forEach(([k,v]) => url.searchParams.set(k, v));
+  const r = await fetch(url.toString());
+  return r.json();
+}
+
+async function apiPost(body) {
+  const r = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  return r.json();
+}
+
+// ── TOAST ─────────────────────────────────────────────
+function toast(msg, type = 'info', duration = 4000) {
+  const w = document.getElementById('toast-wrap');
+  const div = document.createElement('div');
+  div.className = `toast toast-${type}`;
+  div.innerHTML = `<span style="flex:1">${msg}</span><span style="cursor:pointer;opacity:.6;margin-left:8px" onclick="this.parentElement.remove()">✕</span>`;
+  w.appendChild(div);
+  setTimeout(() => div.remove(), duration);
+}
+
+// ── HELPERS ──────────────────────────────────────────
+function fmtN(n, short) {
+  if (short) { if(n>=1e7) return (n/1e7).toFixed(1)+'Cr'; if(n>=1e5) return (n/1e5).toFixed(1)+'L'; if(n>=1e3) return Math.round(n/1e3)+'K'; return Math.round(n); }
+  return (+n).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+}
+function parseDD(s) { const p=(s||'').split('/'); return p.length===3 ? new Date(p[2],p[1]-1,p[0]) : new Date(s); }
+function strColor(s) { let h=0; for(let i=0;i<(s||'').length;i++) h=s.charCodeAt(i)+((h<<5)-h); const c=['#1e3a5f','#166534','#9a3412','#1e40af','#581c87','#065f46','#831843','#1e293b']; return c[Math.abs(h)%c.length]; }
+function getDateVal(row) { for(const k of ['Date','PO Date','Order Date','GRN Date','Invoice Date','WO Date','Attendance Date']) if(row[k]) return row[k]; return ''; }
+
+// ── MAIN APP ─────────────────────────────────────────
+function App() {
+  const [user, setUser] = useState(null);
+  const [dept, setDept] = useState('DASHBOARD');
+  const [tabKey, setTabKey] = useState(null);
+  const [cache, setCache] = useState({});      // { 'DEPT_TAB': {data,headers} }
+  const [loading, setLoading] = useState({});
+  const [sheetLinks, setSheetLinks] = useState([]);
+  const [modal, setModal] = useState(null);
+  const [alertCount, setAlertCount] = useState(0);
+  const [filter, setFilter] = useState({ dateFrom:'', dateTo:'', search:'', status:'All' });
+
+  const closeModal = () => setModal(null);
+  const openModal = (m) => setModal(m);
+
+  // Load sheet links on init
+  useEffect(() => {
+    if (!user) return;
+    apiFetch({ action: 'getDeptLinks' }).then(r => {
+      if (r.ok) setSheetLinks(r.data.filter(l => l.url));
+    }).catch(() => {});
+  }, [user]);
+
+  const navigateTo = (d, t) => {
+    setDept(d); setTabKey(t || null);
+    setFilter({ dateFrom:'', dateTo:'', search:'', status:'All' });
+  };
+
+  const refreshAll = async () => {
+    toast('🔄 Refreshing all sheets...', 'info');
+    const r = await apiPost({ action: 'refreshAll', userName: user?.name || 'System' });
+    if (r.ok) {
+      setCache({});
+      toast(r.msg, 'success');
+    } else toast(r.msg, 'error');
+  };
+
+  if (!user) return <LoginScreen onLogin={(u) => { setUser(u); setDept('DASHBOARD'); }} />;
+
+  return (
+    <>
+      <Topbar user={user} dept={dept} navigateTo={navigateTo} refreshAll={refreshAll}
+        alertCount={alertCount} onProfile={() => openModal({ type:'profile', user })} />
+      <div id="app-layout">
+        <Sidebar dept={dept} tabKey={tabKey} cache={cache} sheetLinks={sheetLinks}
+          onTab={(d,t) => { setDept(d); setTabKey(t); setFilter({ dateFrom:'', dateTo:'', search:'', status:'All' }); }} />
+        <div id="main-area">
+          <div id="content-area">
+            <MainContent dept={dept} tabKey={tabKey} user={user} cache={cache} setCache={setCache}
+              loading={loading} setLoading={setLoading} filter={filter} setFilter={setFilter}
+              navigateTo={navigateTo} openModal={openModal} closeModal={closeModal}
+              setAlertCount={setAlertCount} />
+          </div>
+        </div>
+      </div>
+      {modal && <ModalRouter modal={modal} closeModal={closeModal} user={user} cache={cache} setCache={setCache} />}
+    </>
+  );
+}
+
+// ── LOGIN ─────────────────────────────────────────────
+function LoginScreen({ onLogin }) {
+  const [mode, setMode] = useState('login');
+  const [uname, setUname] = useState('');
+  const [pass, setPass] = useState('');
+  const [err, setErr] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [fpEmail, setFpEmail] = useState('');
+  const [fpToken, setFpToken] = useState('');
+  const [fpUser, setFpUser] = useState('');
+  const [fpNewPass, setFpNewPass] = useState('');
+  const [fpStep, setFpStep] = useState(1);
+
+  const doLogin = async () => {
+    if (!uname || !pass) { setErr('Enter username and password'); return; }
+    setLoading(true); setErr('');
+    try {
+      const r = await apiPost({ action: 'login', username: uname, password: pass });
+      if (r.ok) onLogin(r.user);
+      else setErr(r.msg || 'Login failed');
+    } catch(e) { setErr('Connection error. Check API URL.'); }
+    setLoading(false);
+  };
+
+  const sendToken = async () => {
+    if (!fpEmail) { setErr('Enter your email'); return; }
+    setLoading(true); setErr('');
+    const r = await apiPost({ action: 'forgotPass', email: fpEmail });
+    setLoading(false);
+    if (r.ok) { setFpStep(2); toast(r.msg, 'success'); }
+    else setErr(r.msg);
+  };
+
+  const doReset = async () => {
+    if (!fpUser || !fpToken || !fpNewPass) { setErr('Fill all fields'); return; }
+    setLoading(true); setErr('');
+    const r = await apiPost({ action: 'resetPass', username: fpUser, token: fpToken.toUpperCase(), newPassword: fpNewPass });
+    setLoading(false);
+    if (r.ok) { toast(r.msg, 'success'); setMode('login'); setFpStep(1); }
+    else setErr(r.msg);
+  };
+
+  return (
+    <div id="login-wrap">
+      <div className="login-card">
+        <div className="login-hero">
+          <div className="login-logo">MF</div>
+          <h1>ManuFlow ERP</h1>
+          <p>v6.0 · React + Apps Script Architecture</p>
+        </div>
+        <div className="login-body">
+          {err && <div className="login-err">⚠ {err}</div>}
+          {mode === 'login' && <>
+            <div className="fg"><label className="fgl">Username</label>
+              <input className="fgc" value={uname} onChange={e=>setUname(e.target.value)} placeholder="shubham.sharma" onKeyDown={e=>e.key==='Enter'&&doLogin()} />
+            </div>
+            <div className="fg"><label className="fgl">Password</label>
+              <input className="fgc" type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••" onKeyDown={e=>e.key==='Enter'&&doLogin()} />
+            </div>
+            <button className="login-btn" onClick={doLogin} disabled={loading}>
+              {loading ? 'Signing in...' : 'Sign In →'}
+            </button>
+            <div className="login-link"><a onClick={()=>{setMode('forgot');setErr('');}}>Forgot Password?</a></div>
+          </>}
+          {mode === 'forgot' && <>
+            <div style={{marginBottom:14}}><b style={{fontSize:14}}>Reset Password</b><br/><span style={{fontSize:12,color:'#6b7280'}}>Enter your registered email</span></div>
+            {fpStep === 1 && <>
+              <div className="fg"><label className="fgl">Email</label><input className="fgc" type="email" value={fpEmail} onChange={e=>setFpEmail(e.target.value)} placeholder="you@company.com"/></div>
+              <button className="login-btn" onClick={sendToken} disabled={loading}>{loading?'Sending...':'Send Reset Token'}</button>
+            </>}
+            {fpStep === 2 && <>
+              <div className="info-box" style={{marginBottom:14}}>Token sent to {fpEmail}. Check your inbox.</div>
+              <div className="fg"><label className="fgl">Username</label><input className="fgc" value={fpUser} onChange={e=>setFpUser(e.target.value)} placeholder="your username"/></div>
+              <div className="fg"><label className="fgl">Token (from email)</label><input className="fgc" value={fpToken} onChange={e=>setFpToken(e.target.value.toUpperCase())} placeholder="XXXXXXXXXX" style={{letterSpacing:4,fontFamily:'var(--mono)'}}/></div>
+              <div className="fg"><label className="fgl">New Password</label><input className="fgc" type="password" value={fpNewPass} onChange={e=>setFpNewPass(e.target.value)} placeholder="New password"/></div>
+              <button className="login-btn" onClick={doReset} disabled={loading}>{loading?'Resetting...':'Reset Password'}</button>
+            </>}
+            <div className="login-link"><a onClick={()=>{setMode('login');setErr('');setFpStep(1);}}>← Back to Login</a></div>
+          </>}
+        </div>
+        <div className="login-footer">ManuFlow ERP v6 · Secured · Powered by Google Sheets</div>
+      </div>
+    </div>
+  );
+}
+
+// ── TOPBAR ────────────────────────────────────────────
+function Topbar({ user, dept, navigateTo, refreshAll, alertCount, onProfile }) {
+  const depts = ['DASHBOARD','INVENTORY','PURCHASE','SALES','FINANCE','HR','PRODUCTION','QUALITY','IT'];
+  const canAccess = d => user.level >= 5 || d === 'DASHBOARD' || d === 'IT' || user.modules.includes('ALL') || user.modules.includes(d);
+  return (
+    <div id="topbar">
+      <div className="tb-brand">
+        <div className="tb-logo-mark">MF</div>
+        <div className="tb-brand-text"><div className="tb-brand-name">ManuFlow ERP</div><div className="tb-brand-ver">v6.0 REACT</div></div>
+      </div>
+      <div className="tb-center">
+        {depts.filter(canAccess).map(d => (
+          <button key={d} className={`tb-dept-btn ${dept===d?'on':''}`} onClick={()=>navigateTo(d)}>
+            <span className="di">{DEPT_INFO[d].icon}</span>{DEPT_INFO[d].label}
+          </button>
+        ))}
+      </div>
+      <div className="tb-right">
+        <div className="tb-search">
+          <span className="si">⌕</span>
+          <input placeholder="Search..." id="global-search-inp" />
+        </div>
+        <button className="icon-btn" title="Refresh All Sheets" onClick={refreshAll}>🔄</button>
+        <button className="icon-btn" title="Alerts">
+          🔔{alertCount > 0 && <span className="badge">{alertCount}</span>}
+        </button>
+        <div className="tb-user" onClick={onProfile}>
+          <div className="avatar" style={{background:strColor(user.name)}}>{user.name.charAt(0)}</div>
+          <div className="tb-uinfo"><div className="tb-uname">{user.name.split(' ')[0]}</div><div className="tb-urole">{user.role}</div></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── SIDEBAR ───────────────────────────────────────────
+function Sidebar({ dept, tabKey, cache, sheetLinks, onTab }) {
+  const tabs = TABS_INFO[dept] || [];
+  const deptInfo = DEPT_INFO[dept] || DEPT_INFO.DASHBOARD;
+  const dpColors = ['#1e3a5f','#166534','#9a3412','#1e40af','#581c87','#065f46','#831843','#1e293b','#374151'];
+  return (
+    <div id="sidebar">
+      <div className="sb-section-label">{deptInfo.label}</div>
+      <div className="sb-list">
+        {dept === 'DASHBOARD' && (
+          <div className="sb-item on"><span className="si">🏠</span>Dashboard Overview</div>
+        )}
+        {tabs.map(t => {
+          const cnt = (cache[dept+'_'+t.k]?.data||[]).length;
+          return (
+            <div key={t.k} className={`sb-item ${tabKey===t.k?'on':''}`} onClick={() => onTab(dept, t.k)}>
+              <span className="si">{t.i}</span>
+              <span style={{flex:1}}>{t.l}</span>
+              {cnt > 0 && <span className="sc">{cnt}</span>}
+            </div>
+          );
+        })}
+      </div>
+      <div className="sb-links">
+        <div className="sb-links-title">📊 Google Sheets</div>
+        {sheetLinks.map((l, i) => (
+          <a key={l.dept} className="sheet-link" href={l.url} target="_blank" rel="noreferrer" title={`Open ${DEPT_INFO[l.dept]?.label} Sheet`}>
+            <span className="sl-dot" style={{background:dpColors[i%dpColors.length]}}></span>
+            <span style={{flex:1,fontSize:11.5}}>{DEPT_INFO[l.dept]?.label||l.dept}</span>
+            <span className="sl-rows">{l.totalRows}</span>
+            <span style={{fontSize:10,opacity:.5}}>↗</span>
+          </a>
+        ))}
+        {sheetLinks.length === 0 && <div style={{fontSize:11.5,color:'#9ca3af',padding:'4px 8px'}}>Loading...</div>}
+      </div>
+    </div>
+  );
+}
+
+// ── MAIN CONTENT ROUTER ───────────────────────────────
+function MainContent({ dept, tabKey, user, cache, setCache, loading, setLoading, filter, setFilter, navigateTo, openModal, closeModal, setAlertCount }) {
+  if (dept === 'DASHBOARD') return <Dashboard user={user} cache={cache} setCache={setCache} setAlertCount={setAlertCount} navigateTo={navigateTo} />;
+  if (!tabKey) {
+    const first = (TABS_INFO[dept]||[])[0];
+    if (first) return <TabView dept={dept} tabKey={first.k} user={user} cache={cache} setCache={setCache} loading={loading} setLoading={setLoading} filter={filter} setFilter={setFilter} openModal={openModal} closeModal={closeModal} />;
+    return <div className="empty"><div className="empty-ico">🔧</div><h3>Select a module</h3></div>;
+  }
+  const tabMeta = (TABS_INFO[dept]||[]).find(t=>t.k===tabKey);
+  if (tabMeta?.sp === 'deptlinks') return <DeptLinksView />;
+  if (tabMeta?.sp === 'users') return <UsersView user={user} cache={cache} setCache={setCache} openModal={openModal} />;
+  return <TabView dept={dept} tabKey={tabKey} user={user} cache={cache} setCache={setCache} loading={loading} setLoading={setLoading} filter={filter} setFilter={setFilter} openModal={openModal} closeModal={closeModal} />;
+}
+
+// ── DASHBOARD ─────────────────────────────────────────
+function Dashboard({ user, cache, setCache, setAlertCount, navigateTo }) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    apiFetch({ action: 'getDashboard' }).then(r => { if(r.ok){ setData(r); setAlertCount((r.alerts||[]).length); } }).catch(()=>{});
+  }, []);
+  if (!data) return <div className="page-load"><div className="spin"></div><div className="load-txt">Loading dashboard data...</div></div>;
+  const inv=data.inventory||{}, pur=data.purchase||{}, sal=data.sales||{}, hr=data.hr||{}, fin=data.finance||{}, prod=data.production||{}, it=data.it||{}, qual=data.quality||{};
+  const kpis = [
+    { ico:'💰', label:'Revenue', val:'₹'+fmtN(fin.revenue||0,true), sub:`Net: ₹${fmtN(fin.netProfit||0,true)} · ${fin.npMargin||0}% NP`, color:'#581c87', bg:'#f3e8ff', dept:'FINANCE' },
+    { ico:'📑', label:'Sales Orders', val:sal.total||0, sub:`Pending: ${sal.pending||0} · O/S: ₹${fmtN(sal.outstanding||0,true)}`, color:'#1e40af', bg:'#dbeafe', dept:'SALES' },
+    { ico:'📦', label:'Inventory', val:`${inv.rawItems||0}RM/${inv.fgItems||0}FG`, sub:`Low Stock: ${inv.lowStock||0} · Val: ₹${fmtN(inv.stockValue||0,true)}`, color:'#166534', bg:'#dcfce7', dept:'INVENTORY' },
+    { ico:'🛒', label:'Purchase', val:pur.totalPOs||0, sub:`Pending: ${pur.pending||0} · Due: ₹${fmtN(pur.paymentDue||0,true)}`, color:'#9a3412', bg:'#ffedd5', dept:'PURCHASE' },
+    { ico:'👥', label:'HR', val:`${hr.active||0} Staff`, sub:`Present: ${hr.present||0} · Payroll: ₹${fmtN(hr.payroll||0,true)}`, color:'#065f46', bg:'#d1fae5', dept:'HR' },
+    { ico:'⚙', label:'Production', val:`${prod.inProgress||0} WOs`, sub:`Output: ${prod.todayOutput||0} · Eff: ${prod.avgEff||0}%`, color:'#9a3412', bg:'#ffedd5', dept:'PRODUCTION' },
+    { ico:'✅', label:'Quality', val:`${qual.pass||0} Pass`, sub:`Fail: ${qual.fail||0} · NCR: ${qual.openNCR||0}`, color:'#831843', bg:'#fce7f3', dept:'QUALITY' },
+    { ico:'🚨', label:'Alerts', val:`${it.alerts||0} Open`, sub:`Users: ${it.active||0}/${it.users||0} · Tickets: ${it.tickets||0}`, color:'#1e293b', bg:'#f1f5f9', dept:'IT' },
+  ];
+  const chart = data.salesChart||[];
+  const maxR = Math.max(...chart.map(c=>c.revenue), 1);
+  const depts = [
+    {l:'Sales',v:'₹'+fmtN(sal.revenue||0,true),pct:Math.min(100,(sal.total||0)*5),c:'#1e40af'},
+    {l:'Production',v:(prod.avgEff||0)+'% eff',pct:prod.avgEff||0,c:'#9a3412'},
+    {l:'Quality',v:(qual.pass||0)+' pass',pct:qual.total?Math.round((qual.pass||0)/(qual.total||1)*100):0,c:'#831843'},
+    {l:'HR',v:(hr.present||0)+' present',pct:hr.active?Math.round((hr.present||0)/(hr.active||1)*100):0,c:'#065f46'},
+    {l:'Finance',v:(fin.npMargin||0)+'% NP',pct:Math.min(100,fin.npMargin||0)*5,c:'#581c87'},
+  ];
+  return (
+    <div className="page-enter">
+      <div className="page-hdr">
+        <div className="page-hdr-left"><div className="breadcrumb">⬡ <span className="bc-dept">Dashboard</span></div><div className="page-title">ERP Overview — {data.company||''}</div></div>
+        <div className="page-actions"><span style={{fontSize:11,color:'#9ca3af'}}>Updated {data.timestamp}</span></div>
+      </div>
+      {/* KPI GRID */}
+      <div className="kpi-grid">
+        {kpis.map((k,i) => (
+          <div key={i} className="kpi" onClick={()=>navigateTo(k.dept)} title={`Go to ${k.dept}`}>
+            <div className="kpi-accent" style={{background:k.color}}></div>
+            <div className="kpi-ico" style={{background:k.bg}}>{k.ico}</div>
+            <div className="kpi-v">{k.val}</div>
+            <div className="kpi-l">{k.label}</div>
+            <div className="kpi-s">{k.sub}</div>
+          </div>
+        ))}
+      </div>
+      {/* ROW 2 */}
+      <div className="dash-row2">
+        <div className="chart-card">
+          <h3>📈 Sales Revenue — Last 6 Months</h3>
+          <div className="bars">
+            {chart.length ? chart.map((c,i) => (
+              <div key={i} className="bar-col">
+                <div className="bar-val">₹{fmtN(c.revenue,true)}</div>
+                <div className="bar" style={{height:Math.round((c.revenue/maxR)*100)+'px'}}></div>
+                <div className="bar-lbl">{c.period}</div>
+              </div>
+            )) : <div style={{color:'#9ca3af',fontSize:12,padding:20}}>No data yet</div>}
+          </div>
+          <div style={{marginTop:10,display:'flex',gap:14,flexWrap:'wrap'}}>
+            {chart.map((c,i)=><span key={i} style={{fontSize:11,color:'#6b7280'}}>{c.period}: <b style={{color:'var(--ink)'}}>{c.orders}</b> orders</span>)}
+          </div>
+        </div>
+        <div className="chart-card">
+          <h3>🏢 Dept Performance</h3>
+          {depts.map((d,i)=>(
+            <div key={i} className="dept-row">
+              <div className="dept-dot" style={{background:d.c}}></div>
+              <div className="dept-name">{d.l}</div>
+              <div className="dept-bar-bg"><div className="dept-bar-fill" style={{width:d.pct+'%',background:d.c}}></div></div>
+              <div className="dept-metric">{d.v}</div>
+            </div>
+          ))}
+        </div>
+        <div className="chart-card">
+          <h3>🚨 System Alerts</h3>
+          {(data.alerts||[]).length ? (data.alerts||[]).map((a,i)=>(
+            <div key={i} className={`alert-item ${a.Priority==='High'?'ai-high':a.Priority==='Medium'?'ai-med':'ai-low'}`}>
+              <span className="ai-icon">{a.Priority==='High'?'🔴':a.Priority==='Medium'?'🟡':'🟢'}</span>
+              <div><div className="ai-msg">{(a.Message||'').slice(0,75)}{(a.Message||'').length>75?'…':''}</div>
+              <div className="ai-meta">{a['Alert Type']||a.Type||''} · {a.Department||a.Dept||''}</div></div>
+            </div>
+          )) : <div className="empty" style={{padding:20}}><span style={{fontSize:32}}>✅</span><p style={{color:'#166534',fontWeight:600}}>No open alerts</p></div>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── TAB VIEW ──────────────────────────────────────────
+function TabView({ dept, tabKey, user, cache, setCache, loading, setLoading, filter, setFilter, openModal, closeModal }) {
+  const cKey = dept+'_'+tabKey;
+  const tabMeta = (TABS_INFO[dept]||[]).find(t=>t.k===tabKey) || { l:tabKey, i:'📋' };
+  const deptInfo = DEPT_INFO[dept]||DEPT_INFO.DASHBOARD;
+  const [sortCol, setSortCol] = useState(null);
+  const [sortDir, setSortDir] = useState(1);
+
+  useEffect(() => {
+    if (!cache[cKey]) loadData();
+  }, [dept, tabKey]);
+
+  const loadData = async (df, dt, sq) => {
+    setLoading(l => ({...l, [cKey]:true}));
+    const params = { action:'getData', dept, tab:tabKey };
+    if (df) params.dateFrom = df;
+    if (dt) params.dateTo = dt;
+    if (sq) params.search = sq;
+    try {
+      const r = await apiFetch(params);
+      if (r.ok) setCache(c => ({...c, [cKey]:{data:r.data||[], headers:r.headers||[]}}));
+      else toast(r.msg||'Error loading data', 'error');
+    } catch(e) { toast('Connection error', 'error'); }
+    setLoading(l => ({...l, [cKey]:false}));
+  };
+
+  const applyFilter = () => {
+    const c = {...cache}; delete c[cKey]; setCache(c);
+    loadData(filter.dateFrom, filter.dateTo, filter.search);
+  };
+
+  const clearFilter = () => {
+    setFilter({ dateFrom:'', dateTo:'', search:'', status:'All' });
+    const c = {...cache}; delete c[cKey]; setCache(c);
+    loadData();
+  };
+
+  const allData = cache[cKey]?.data || [];
+  const headers = cache[cKey]?.headers || [];
+  const isLoading = loading[cKey];
+
+  // Client-side status filter + sort
+  let data = [...allData];
+  if (filter.status && filter.status !== 'All') data = data.filter(r => Object.values(r).some(v => v.toLowerCase() === filter.status.toLowerCase()));
+  if (filter.search && !filter.dateFrom) data = data.filter(r => Object.values(r).some(v => v.toString().toLowerCase().includes(filter.search.toLowerCase())));
+  if (sortCol) data.sort((a,b) => { const av=(a[sortCol]||'').toLowerCase(), bv=(b[sortCol]||'').toLowerCase(); return av<bv?-sortDir:av>bv?sortDir:0; });
+
+  const statuses = ['All', ...new Set(allData.map(r=>r['Status']).filter(Boolean))];
+  const canAdd = user.level >= 2;
+  const isSpecial = tabMeta.sp === 'indent' || tabMeta.sp === 'po' || tabMeta.sp === 'grn';
+
+  const doSort = (col) => { if(sortCol===col) setSortDir(d=>d*-1); else { setSortCol(col); setSortDir(1); } };
+  const doDelete = async (recId) => {
+    if (!confirm(`Delete "${recId}"?`)) return;
+    const r = await apiPost({ action:'deleteRecord', dept, tab:tabKey, recordId:recId, userId:user.id, userName:user.name });
+    if (r.ok) { toast('Deleted', 'success'); const c={...cache}; delete c[cKey]; setCache(c); loadData(); }
+    else toast(r.msg, 'error');
+  };
+
+  const renderCell = (h, v) => {
+    if (!v && v !== 0) return <span style={{color:'#d1d5db'}}>—</span>;
+    if (h === 'Status' || h === 'Result' || h === 'Priority') return <span className={`chip ${STATUS_CLS[v]||'c-gray'}`}>{v}</span>;
+    if (h.includes('Amount')||h.includes('Total')||h.includes('Salary')||h.includes('Revenue')||h.includes('Rate')||h==='Balance Due'||h==='Balance') {
+      const n = parseFloat(v.toString().replace(/[₹,]/g,''));
+      if (!isNaN(n)) return <span className="mono">₹{fmtN(n)}</span>;
+    }
+    if (h.includes('%')||h.includes('Efficiency')) { const n=parseFloat(v); if(!isNaN(n)) return <span style={{color:n>=90?'#166534':n>=70?'#92400e':'#b91c1c',fontWeight:600}}>{n.toFixed(1)}%</span>; }
+    if (h.includes('ID')||h.includes('No')||h.includes('Code')) return <span className="id-cell">{v}</span>;
+    if (h === 'Email') return <a href={`mailto:${v}`} style={{color:'var(--ink2)'}}>{v}</a>;
+    if (h.includes('Date')) return <span className="mono" style={{fontSize:11}}>{v}</span>;
+    if (v.length > 48) return <span title={v}>{v.slice(0,46)}…</span>;
+    return v;
+  };
+
+  const stats = useMemo(() => {
+    const cards = [];
+    if (tabKey === 'RAW' || tabKey === 'FINISHED') {
+      const low = allData.filter(r=>parseFloat(r['Closing Qty']||r['Closing']||0)<=parseFloat(r['Min Level']||r['Min Stock']||0)).length;
+      const val = allData.reduce((s,r)=>s+(parseFloat(r['Closing Qty']||r['Closing']||0)*parseFloat(r['Rate']||r['Sale Price']||0)),0);
+      cards.push({ico:'📦',v:allData.length,l:'Total Items',bg:'#dbeafe'});
+      cards.push({ico:'⚠',v:low,l:'Low Stock',bg:low?'#fce7f3':'#d1fae5',vc:low?'var(--rose)':'var(--mint)'});
+      cards.push({ico:'💰',v:'₹'+fmtN(val,true),l:'Stock Value',bg:'#f3e8ff'});
+    }
+    if (['ORDERS','PO','INDENT'].includes(tabKey)) {
+      const pend=allData.filter(r=>/pend|new|open|draft/i.test(r['Status']||'')).length;
+      const done=allData.filter(r=>/delivered|completed|approved|paid/i.test(r['Status']||'')).length;
+      cards.push({ico:'📑',v:allData.length,l:`Total ${tabKey==='PO'?'POs':'Records'}`,bg:'#dbeafe'});
+      cards.push({ico:'⏳',v:pend,l:'Pending',bg:'#ffedd5',vc:'var(--amber)'});
+      cards.push({ico:'✅',v:done,l:'Completed',bg:'#d1fae5',vc:'var(--mint)'});
+    }
+    if (tabKey === 'EMPLOYEES') {
+      const act=allData.filter(r=>/active/i.test(r['Status']||'')).length;
+      const pay=allData.filter(r=>/active/i.test(r['Status']||'')).reduce((s,r)=>s+(parseFloat(r['CTC']||0)/12),0);
+      cards.push({ico:'👥',v:allData.length,l:'Total Employees',bg:'#d1fae5'});
+      cards.push({ico:'✅',v:act,l:'Active',bg:'#dcfce7',vc:'var(--mint)'});
+      cards.push({ico:'💰',v:'₹'+fmtN(pay,true),l:'Monthly Payroll',bg:'#f3e8ff'});
+    }
+    if (tabKey === 'WO') {
+      const ip=allData.filter(r=>/progress/i.test(r['Status']||'')).length;
+      const comp=allData.filter(r=>/complet/i.test(r['Status']||'')).length;
+      cards.push({ico:'⚙',v:ip,l:'In Progress',bg:'#ffedd5',vc:'var(--amber)'});
+      cards.push({ico:'✅',v:comp,l:'Completed',bg:'#d1fae5',vc:'var(--mint)'});
+      cards.push({ico:'📦',v:fmtN(allData.reduce((s,r)=>s+(parseFloat(r['Net Qty']||0)),0)),l:'Total Produced',bg:'#dbeafe'});
+    }
+    return cards;
+  }, [allData, tabKey]);
+
+  return (
+    <div className="page-enter">
+      <div className="page-hdr">
+        <div className="page-hdr-left">
+          <div className="breadcrumb">{deptInfo.icon} <span className="bc-dept">{deptInfo.label}</span> › {tabMeta.l}</div>
+          <div className="page-title">{tabMeta.i} {tabMeta.l}</div>
+        </div>
+        <div className="page-actions">
+          <button className="btn btn-ghost btn-sm" onClick={()=>exportCSV(headers, allData, dept+'_'+tabKey)}>↓ Export CSV</button>
+          {canAdd && <button className="btn btn-primary btn-sm" onClick={()=>isSpecial?openModal({type:'special',dept,tabKey,user}):openModal({type:'add',dept,tabKey,headers,user})}>
+            {tabMeta.i} Add {tabMeta.l.replace(/s$/,'').replace('Material Received','GRN').replace('Purchase Orders','PO').replace('Purchase Indent','Indent')}
+          </button>}
+        </div>
+      </div>
+      {stats.length > 0 && <div className="stats-row">{stats.map((s,i)=><div key={i} className="stat"><div className="stat-icon" style={{background:s.bg}}>{s.ico}</div><div><div className="stat-val" style={{color:s.vc||'var(--ink)'}}>{s.v}</div><div className="stat-lbl">{s.l}</div></div></div>)}</div>}
+      <div className="filter-bar">
+        <span className="fl">From:</span><input type="date" className="fi" value={filter.dateFrom} onChange={e=>setFilter(f=>({...f,dateFrom:e.target.value}))} />
+        <span className="fl">To:</span><input type="date" className="fi" value={filter.dateTo} onChange={e=>setFilter(f=>({...f,dateTo:e.target.value}))} />
+        <div className="status-pills">{statuses.map(s=><span key={s} className={`spill ${filter.status===s?'on':''}`} onClick={()=>setFilter(f=>({...f,status:s}))}>{s}</span>)}</div>
+        <div className="fsearch" style={{marginLeft:'auto'}}><span style={{color:'#9ca3af'}}>⌕</span><input placeholder={`Search ${tabMeta.l}...`} value={filter.search} onChange={e=>setFilter(f=>({...f,search:e.target.value}))} /></div>
+        <button className="btn btn-ghost btn-sm" onClick={applyFilter}>Apply</button>
+        <button className="btn btn-ghost btn-sm" onClick={clearFilter}>✕ Clear</button>
+      </div>
+      <div className="tbl-card">
+        {isLoading && <div className="page-load"><div className="spin"></div><div className="load-txt">Loading from Google Sheets...</div></div>}
+        {!isLoading && data.length > 0 && <>
+          <div className="tbl-wrap">
+            <table>
+              <thead><tr>{headers.map(h=><th key={h} onClick={()=>doSort(h)}>{h}{sortCol===h?(sortDir===1?' ↑':' ↓'):''}</th>)}<th>Actions</th></tr></thead>
+              <tbody>{data.map((row,ri)=>(
+                <tr key={ri}>
+                  {headers.map(h=><td key={h}>{renderCell(h,row[h])}</td>)}
+                  <td><div style={{display:'flex',gap:4}}>
+                    {user.level>=2&&<button className="btn btn-ghost btn-sm btn-icon" title="Edit" onClick={()=>openModal({type:'edit',dept,tabKey,headers,record:row,recId:row[headers[0]],user})}>✏</button>}
+                    <button className="btn btn-ghost btn-sm btn-icon" title="View" onClick={()=>openModal({type:'view',dept,tabKey,headers,record:row,recId:row[headers[0]]})}>👁</button>
+                    {user.level>=4&&<button className="btn btn-danger btn-sm btn-icon" title="Delete" onClick={()=>doDelete(row[headers[0]])}>✕</button>}
+                  </div></td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+          <div className="tbl-footer"><span>Showing <b>{data.length}</b> of <b>{allData.length}</b> records</span><span style={{fontSize:11,color:'#9ca3af'}}>⚡ Cached · Click column to sort</span></div>
+        </>}
+        {!isLoading && !data.length && <div className="empty"><div className="empty-ico">{tabMeta.i}</div><h3>No records found</h3><p>{filter.search||filter.dateFrom?'Try adjusting filters':'Click Add to create your first record'}</p></div>}
+      </div>
+    </div>
+  );
+}
+
+// CSV Export
+function exportCSV(headers, data, filename) {
+  const rows = [headers.join(','), ...data.map(r => headers.map(h => `"${(r[h]||'').replace(/"/g,'""')}"`).join(','))];
+  const blob = new Blob([rows.join('\n')], { type:'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename+'.csv'; a.click();
+  toast('CSV exported', 'success');
+}
+
+// ── USERS VIEW ────────────────────────────────────────
+function UsersView({ user, cache, setCache, openModal }) {
+  const [data, setData] = useState([]);
+  const [ldg, setLdg] = useState(true);
+  useEffect(() => {
+    apiFetch({action:'getData',dept:'IT',tab:'USERS'}).then(r=>{ if(r.ok){ setData(r.data||[]); setCache(c=>({...c,'IT_USERS':{data:r.data||[],headers:r.headers||[]}})); } setLdg(false); }).catch(()=>setLdg(false));
+  }, []);
+  const clrs = ['#1e3a5f','#166534','#9a3412','#1e40af','#581c87','#065f46','#831843','#374151'];
+  if (ldg) return <div className="page-load"><div className="spin"></div><div className="load-txt">Loading users...</div></div>;
+  return (
+    <div className="page-enter">
+      <div className="page-hdr">
+        <div className="page-hdr-left"><div className="breadcrumb">💻 IT Master › <span className="bc-dept">Users</span></div><div className="page-title">👤 User Management</div></div>
+        <div className="page-actions">
+          <button className="btn btn-ghost btn-sm" onClick={()=>openModal({type:'genCreds'})}>🔑 Generate Credentials</button>
+          <button className="btn btn-primary btn-sm" onClick={()=>openModal({type:'addUser',user})}>➕ Add User</button>
+        </div>
+      </div>
+      <div className="stats-row">
+        <div className="stat"><div className="stat-icon" style={{background:'#dbeafe'}}>👥</div><div><div className="stat-val">{data.length}</div><div className="stat-lbl">Total Users</div></div></div>
+        <div className="stat"><div className="stat-icon" style={{background:'#d1fae5'}}>✅</div><div><div className="stat-val" style={{color:'var(--mint)'}}>{data.filter(u=>/active/i.test(u['Status']||'')).length}</div><div className="stat-lbl">Active</div></div></div>
+        <div className="stat"><div className="stat-icon" style={{background:'#f3e8ff'}}>🔑</div><div><div className="stat-val">{[...new Set(data.map(u=>u['Role']))].length}</div><div className="stat-lbl">Roles</div></div></div>
+      </div>
+      <div className="user-grid">
+        {data.map((u,i)=>(
+          <div key={i} className="user-card">
+            <div className="avatar" style={{width:46,height:46,borderRadius:12,background:clrs[i%clrs.length],fontSize:18}}>{(u['Full Name']||'U').charAt(0)}</div>
+            <div className="uc-info">
+              <div className="uc-name">{u['Full Name']}</div>
+              <div className="uc-meta">@{u['Username']} · {u['User ID']}</div>
+              <div style={{fontSize:12,color:'#374151',marginTop:2}}>{u['Department']} · {u['Designation']}</div>
+              <div className="uc-tags">
+                <span className={`chip ${STATUS_CLS[u['Status']]||'c-gray'}`}>{u['Status']}</span>
+                <span className="chip c-blue">{u['Role']}</span>
+                <span style={{fontSize:10,color:'#6b7280',padding:'2px 6px',background:'var(--slate)',borderRadius:10}}>L{u['Access Level']}</span>
+              </div>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:6}}>
+              <button className="btn btn-ghost btn-sm btn-icon" onClick={()=>openModal({type:'edit',dept:'IT',tabKey:'USERS',headers:cache['IT_USERS']?.headers||[],record:u,recId:u['User ID'],user})} title="Edit">✏</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── DEPT LINKS VIEW ───────────────────────────────────
+function DeptLinksView() {
+  const [data, setData] = useState([]);
+  const [ldg, setLdg] = useState(true);
+  useEffect(() => { apiFetch({action:'getDeptLinks'}).then(r=>{ if(r.ok) setData(r.data||[]); setLdg(false); }).catch(()=>setLdg(false)); }, []);
+  const c = ['#1e3a5f','#166534','#9a3412','#1e40af','#581c87','#065f46','#831843','#1e293b'];
+  if (ldg) return <div className="page-load"><div className="spin"></div><div className="load-txt">Checking connections...</div></div>;
+  return (
+    <div className="page-enter">
+      <div className="page-hdr"><div className="page-hdr-left"><div className="breadcrumb">💻 IT Master › <span className="bc-dept">Dept Links</span></div><div className="page-title">🔗 All Department Connections</div></div></div>
+      <div className="dl-grid">
+        {data.map((dept,i)=>(
+          <div key={i} className="dl-card">
+            <div className="dl-hdr">
+              <span style={{width:10,height:10,borderRadius:'50%',background:dept.status==='Connected'?'var(--mint)':'var(--rose)',display:'inline-block',flexShrink:0}}></span>
+              <span style={{fontSize:16}}>{DEPT_INFO[dept.dept]?.icon||'📊'}</span>
+              <h4>{DEPT_INFO[dept.dept]?.label||dept.dept}</h4>
+              <span className={`chip ${dept.status==='Connected'?'c-green':'c-red'}`}>{dept.status}</span>
+              {dept.url && <a href={dept.url} target="_blank" rel="noreferrer" style={{fontSize:11,color:'var(--ink2)',textDecoration:'none',display:'flex',alignItems:'center',gap:3}}>Open ↗</a>}
+            </div>
+            <div style={{fontSize:10.5,color:'#9ca3af',fontFamily:'var(--mono)',marginBottom:10,wordBreak:'break-all'}}>{dept.id||'—'}</div>
+            <div style={{fontSize:11.5,color:'#374151',marginBottom:8,display:'flex',gap:12}}>
+              <span>📂 {dept.tabs?.length||0} tabs</span>
+              <span>📝 {dept.totalRows||0} records</span>
+            </div>
+            {(dept.tabs||[]).slice(0,6).map((t,j)=>(
+              <div key={j} className="dl-tab-row"><span className="dl-tab-name">{t.name}</span><span className="dl-tab-rows">{t.rows} rows</span></div>
+            ))}
+            {dept.tabs?.length > 6 && <div style={{fontSize:11,color:'#9ca3af',padding:'4px 8px'}}>+{dept.tabs.length-6} more tabs</div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── MODAL ROUTER ──────────────────────────────────────
+function ModalRouter({ modal, closeModal, user, cache, setCache }) {
+  if (modal.type === 'profile') return <ProfileModal user={modal.user} closeModal={closeModal} />;
+  if (modal.type === 'add') return <AddEditModal mode="add" {...modal} closeModal={closeModal} onSaved={()=>{ setCache(c=>{const nc={...c}; delete nc[modal.dept+'_'+modal.tabKey]; return nc; }); closeModal(); }} />;
+  if (modal.type === 'edit') return <AddEditModal mode="edit" {...modal} closeModal={closeModal} onSaved={()=>{ setCache(c=>{const nc={...c}; delete nc[modal.dept+'_'+modal.tabKey]; return nc; }); closeModal(); }} />;
+  if (modal.type === 'view') return <ViewModal {...modal} closeModal={closeModal} />;
+  if (modal.type === 'special') return <SpecialFormModal {...modal} closeModal={closeModal} onSaved={()=>{ setCache(c=>{const nc={...c}; delete nc[modal.dept+'_'+modal.tabKey]; return nc; }); closeModal(); }} />;
+  if (modal.type === 'addUser') return <AddUserModal {...modal} closeModal={closeModal} onSaved={()=>{ setCache(c=>{const nc={...c}; delete nc['IT_USERS']; return nc; }); closeModal(); }} />;
+  if (modal.type === 'genCreds') return <GenCredsModal closeModal={closeModal} />;
+  return null;
+}
+
+// ── PROFILE MODAL ─────────────────────────────────────
+function ProfileModal({ user: u, closeModal }) {
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-sm">
+        <div className="modal-hdr"><h3>👤 Profile</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          <div style={{textAlign:'center',marginBottom:20}}>
+            <div className="avatar" style={{width:64,height:64,borderRadius:16,background:strColor(u.name),fontSize:26,margin:'0 auto 10px'}}>{u.name.charAt(0)}</div>
+            <div style={{fontSize:17,fontWeight:800,color:'var(--ink)'}}>{u.name}</div>
+            <div style={{fontSize:12,color:'#6b7280',fontFamily:'var(--mono)'}}>@{u.username}</div>
+          </div>
+          {[['📧','Email',u.email],['📱','Phone',u.phone||'—'],['🏢','Department',u.dept],['💼','Designation',u.designation||'—'],['🔑','Role',u.role],['⭐','Access Level',u.level]].map(([ico,lbl,val])=>(
+            <div key={lbl} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 0',borderBottom:'1px solid var(--slate2)'}}>
+              <span>{ico}</span><span style={{fontSize:11.5,fontWeight:600,color:'#6b7280',width:110}}>{lbl}</span><span style={{fontSize:13,color:'var(--ink)'}}>{val}</span>
+            </div>
+          ))}
+          <div style={{display:'flex',alignItems:'center',gap:10,padding:'8px 0'}}>
+            <span>📦</span><span style={{fontSize:11.5,fontWeight:600,color:'#6b7280',width:110}}>Modules</span>
+            <span style={{fontSize:12}}>{u.modules.join(', ')}</span>
+          </div>
+        </div>
+        <div className="modal-ftr">
+          <button className="btn btn-danger" onClick={()=>window.location.reload()}>🚪 Sign Out</button>
+          <button className="btn btn-ghost" onClick={closeModal}>Close</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── ADD / EDIT MODAL ──────────────────────────────────
+function AddEditModal({ mode, dept, tabKey, headers, record, recId, user, closeModal, onSaved }) {
+  const editHeaders = (headers||[]).slice(1).filter(h => !['Created By','Last Login','Created Date','Password Hash','Marked By'].includes(h));
+  const [vals, setVals] = useState(() => {
+    const v = {};
+    editHeaders.forEach(h => v[h] = (record||{})[h]||'');
+    return v;
+  });
+  const [saving, setSaving] = useState(false);
+  const tabMeta = (TABS_INFO[dept]||[]).find(t=>t.k===tabKey)||{l:tabKey,i:'📋'};
+
+  const save = async () => {
+    setSaving(true);
+    const action = mode === 'edit' ? 'updateRecord' : 'addRecord';
+    const body = { action, dept, tab:tabKey, record:vals, userId:user.id, userName:user.name };
+    if (mode === 'edit') body.recordId = recId;
+    const r = await apiPost(body);
+    setSaving(false);
+    if (r.ok) { toast(r.msg,'success'); onSaved(); }
+    else toast(r.msg,'error');
+  };
+
+  const getInput = (h) => {
+    const selectOpts = {
+      'Status':['Active','Inactive','Pending','Approved','Rejected','Completed','Cancelled','In Progress','Draft','Open','Closed','Paid','Unpaid','Overdue','Pass','Fail'],
+      'Priority':['High','Medium','Low'], 'Result':['Pass','Fail','Hold'], 'Gender':['Male','Female','Other'],
+      'Leave Type':['Annual Leave','Sick Leave','Casual Leave','Emergency'], 'Payment Mode':['NEFT','RTGS','Cheque','Cash','UPI'],
+      'Txn Type':['Credit','Debit'], 'UOM':['PCS','KG','MTR','LTR','REAM','BOX','SET','TON'],
+      'Shift':['General','Morning','Evening','Night'], 'Role':['Super Admin','Manager','Viewer','Limited'],
+      'License Type':['Perpetual','Annual Subscription','Monthly','Open Source'],
+      'Inspection Type':['Incoming Material','In-Process','Final Inspection'],
+      'Department':['Production','Purchase','Sales','Finance','HR','Quality','IT','Admin','Maintenance'],
+      'Move Type':['IN','OUT','TRANSFER','ADJUSTMENT'],
+    };
+    const v = vals[h]||''; const upd = (val) => setVals(x=>({...x,[h]:val}));
+    if (h.toLowerCase().includes('date')) return <input type="date" className="fgc" value={v} onChange={e=>upd(e.target.value)} />;
+    if (h==='Email') return <input type="email" className="fgc" value={v} onChange={e=>upd(e.target.value)} placeholder="email@company.com"/>;
+    if (h==='Phone') return <input type="tel" className="fgc" value={v} onChange={e=>upd(e.target.value)} placeholder="9876543210"/>;
+    if (/Qty|Amount|Rate|Cost|Salary|Price|Hrs|Score|Balance|Debit|Credit/.test(h)||h.includes('%')) return <input type="number" className="fgc" min="0" step="0.01" value={v} onChange={e=>upd(e.target.value)}/>;
+    if (/Desc|Address|Remarks|Narration|Resolution|Issue|Action|Reason|Root Cause|CAPA/.test(h)) return <textarea className="fgc" rows="2" value={v} onChange={e=>upd(e.target.value)} placeholder={`Enter ${h.toLowerCase()}...`}/>;
+    if (selectOpts[h]) return <select className="fgc" value={v} onChange={e=>upd(e.target.value)}>{selectOpts[h].map(o=><option key={o}>{o}</option>)}</select>;
+    return <input className="fgc" value={v} onChange={e=>upd(e.target.value)} placeholder={`Enter ${h.toLowerCase()}...`}/>;
+  };
+
+  const half=[], full=[];
+  editHeaders.forEach(h => { if(/Desc|Address|Remarks|Narration|Resolution|Issue|Action|CAPA|Root Cause/.test(h)) full.push(h); else half.push(h); });
+
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-lg">
+        <div className="modal-hdr"><h3>{mode==='edit'?`✏ Edit ${tabMeta.l.replace(/s$/,'')}`:tabMeta.i+' Add '+tabMeta.l.replace(/s$/,'')}</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          {mode==='edit'&&<div style={{marginBottom:14}}><span className="chip c-blue">{recId}</span></div>}
+          <div className="form-row">{half.map(h=><div key={h} className="fg"><label className="fgl">{h}</label>{getInput(h)}</div>)}</div>
+          {full.map(h=><div key={h} className="fg"><label className="fgl">{h}</label>{getInput(h)}</div>)}
+          {saving&&<div className="page-load" style={{padding:20}}><div className="spin-sm spin"></div><span style={{fontSize:12,color:'#6b7280'}}>Saving...</span></div>}
+        </div>
+        <div className="modal-ftr">
+          <button className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+          <button className="btn btn-primary" onClick={save} disabled={saving}>{saving?'Saving...':mode==='edit'?'Update Record':'Save Record'}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── VIEW MODAL ────────────────────────────────────────
+function ViewModal({ headers, record, recId, closeModal }) {
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-md">
+        <div className="modal-hdr"><h3>👁 View Record: {recId}</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          <div style={{columns:2,gap:16}}>{(headers||[]).map(h=>(
+            <div key={h} style={{breakInside:'avoid',marginBottom:10,paddingBottom:8,borderBottom:'1px solid var(--slate)'}}>
+              <div style={{fontSize:10,fontWeight:700,color:'#9ca3af',textTransform:'uppercase',letterSpacing:.5}}>{h}</div>
+              <div style={{fontSize:13,color:'var(--ink)',marginTop:2,fontFamily:/ID|No|Code|Date/.test(h)?'var(--mono)':'inherit'}}>{record?.[h]||'—'}</div>
+            </div>
+          ))}</div>
+        </div>
+        <div className="modal-ftr"><button className="btn btn-ghost" onClick={closeModal}>Close</button></div>
+      </div>
+    </div>
+  );
+}
+
+// ── SPECIAL FORMS (Multi-Item) ────────────────────────
+function SpecialFormModal({ dept, tabKey, user, closeModal, onSaved }) {
+  if (tabKey === 'INDENT') return <IndentForm user={user} closeModal={closeModal} onSaved={onSaved} />;
+  if (tabKey === 'PO') return <POForm user={user} closeModal={closeModal} onSaved={onSaved} />;
+  if (tabKey === 'GRN') return <GRNForm user={user} closeModal={closeModal} onSaved={onSaved} />;
+  return null;
+}
+
+function IndentForm({ user, closeModal, onSaved }) {
+  const [header, setHeader] = useState({ dept:'Production', requiredBy:'', remarks:'' });
+  const [items, setItems] = useState([{ id:1, itemCode:'', itemName:'', uom:'PCS', qty:1, rate:0, amount:0, purpose:'' }]);
+  const [saving, setSaving] = useState(false);
+  const addItem = () => setItems(i=>[...i,{id:Date.now(),itemCode:'',itemName:'',uom:'PCS',qty:1,rate:0,amount:0,purpose:''}]);
+  const removeItem = (id) => setItems(i=>i.filter(x=>x.id!==id));
+  const updItem = (id,f,v) => setItems(i=>i.map(x=>x.id===id?{...x,[f]:v,amount:f==='qty'?parseFloat(v||0)*parseFloat(x.rate||0):f==='rate'?parseFloat(x.qty||0)*parseFloat(v||0):x.amount}:x));
+  const total = items.reduce((s,i)=>s+(parseFloat(i.amount)||0),0);
+  const save = async () => {
+    if (!header.requiredBy) { toast('Select required by date','error'); return; }
+    const valid = items.filter(i=>i.itemName.trim());
+    if (!valid.length) { toast('Add at least one item','error'); return; }
+    setSaving(true);
+    const r = await apiPost({ action:'saveIndent', header, items:valid, userId:user.id, userName:user.name });
+    setSaving(false);
+    if (r.ok) { toast(r.msg,'success'); onSaved(); } else toast(r.msg,'error');
+  };
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-xl">
+        <div className="modal-hdr"><h3>📋 New Purchase Indent</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          <div className="info-box" style={{marginBottom:14}}>💡 Multi-item indent — add as many items as needed in one transaction</div>
+          <div className="form-row-3" style={{marginBottom:16}}>
+            <div className="fg"><label className="fgl">Department *</label><select className="fgc" value={header.dept} onChange={e=>setHeader(h=>({...h,dept:e.target.value}))}><option>Production</option><option>Purchase</option><option>HR</option><option>Finance</option><option>IT</option><option>Quality</option><option>Maintenance</option><option>Admin</option></select></div>
+            <div className="fg"><label className="fgl">Required By *</label><input type="date" className="fgc" value={header.requiredBy} onChange={e=>setHeader(h=>({...h,requiredBy:e.target.value}))}/></div>
+            <div className="fg"><label className="fgl">Remarks</label><input className="fgc" value={header.remarks} onChange={e=>setHeader(h=>({...h,remarks:e.target.value}))} placeholder="Purpose of indent..."/></div>
+          </div>
+          <div className="mit-wrap">
+            <table><thead><tr><th style={{width:32}}>#</th><th>Item Code</th><th>Item Name *</th><th>UOM</th><th>Qty</th><th>Est Rate</th><th>Amount</th><th>Purpose</th><th></th></tr></thead>
+            <tbody>{items.map((it,i)=>(
+              <tr key={it.id}>
+                <td style={{color:'#9ca3af',fontSize:11}}>{i+1}</td>
+                <td><input className="mit-inp" placeholder="RM-001" value={it.itemCode} onChange={e=>updItem(it.id,'itemCode',e.target.value)}/></td>
+                <td><input className="mit-inp" placeholder="Item name" value={it.itemName} onChange={e=>updItem(it.id,'itemName',e.target.value)}/></td>
+                <td><select className="mit-inp" value={it.uom} onChange={e=>updItem(it.id,'uom',e.target.value)} style={{width:70}}><option>PCS</option><option>KG</option><option>MTR</option><option>LTR</option><option>REAM</option><option>BOX</option></select></td>
+                <td><input className="mit-inp" type="number" min="0" step="0.01" value={it.qty} onChange={e=>updItem(it.id,'qty',e.target.value)} style={{width:70}}/></td>
+                <td><input className="mit-inp" type="number" min="0" step="0.01" value={it.rate} onChange={e=>updItem(it.id,'rate',e.target.value)} style={{width:80}}/></td>
+                <td><span className="mono" style={{fontWeight:600,fontSize:12}}>₹{(parseFloat(it.qty||0)*parseFloat(it.rate||0)).toFixed(2)}</span></td>
+                <td><input className="mit-inp" placeholder="Purpose" value={it.purpose} onChange={e=>updItem(it.id,'purpose',e.target.value)}/></td>
+                <td>{items.length>1&&<button className="del-btn" onClick={()=>removeItem(it.id)}>✕</button>}</td>
+              </tr>
+            ))}</tbody></table>
+            <div className="add-row-btn" onClick={addItem}>➕ Add Another Item</div>
+            <div className="mit-footer"><span>Items: <b>{items.length}</b></span><span>Total Est. Amount: <b className="mono" style={{fontSize:15}}>₹{total.toFixed(2)}</b></span></div>
+          </div>
+        </div>
+        <div className="modal-ftr">
+          <button className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+          <button className="btn btn-primary" onClick={save} disabled={saving}>{saving?'Creating...':'📋 Create Indent'}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function POForm({ user, closeModal, onSaved }) {
+  const [header, setHeader] = useState({ vendor:'', indentRef:'', terms:'Net 30', deliveryDate:'', remarks:'' });
+  const [items, setItems] = useState([{ id:1, itemCode:'', itemName:'', uom:'PCS', qty:1, rate:0, gstPct:18 }]);
+  const [saving, setSaving] = useState(false);
+  const calc = (it) => { const a=(parseFloat(it.qty||0)*parseFloat(it.rate||0)); const g=a*(parseFloat(it.gstPct||18)/100); return {...it,amount:a,gstAmt:g,total:a+g}; };
+  const updItem = (id,f,v) => setItems(i=>i.map(x=>x.id===id?calc({...x,[f]:v}):x));
+  const addItem = () => setItems(i=>[...i,{id:Date.now(),itemCode:'',itemName:'',uom:'PCS',qty:1,rate:0,gstPct:18}]);
+  const grand = items.reduce((s,i)=>s+(parseFloat(i.total||0)),0);
+  const save = async () => {
+    if (!header.vendor) { toast('Enter vendor name','error'); return; }
+    const valid = items.filter(i=>i.itemName.trim()).map(calc);
+    if (!valid.length) { toast('Add at least one item','error'); return; }
+    setSaving(true);
+    const r = await apiPost({ action:'savePO', header, items:valid, userId:user.id, userName:user.name });
+    setSaving(false);
+    if (r.ok) { toast(r.msg,'success'); onSaved(); } else toast(r.msg,'error');
+  };
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-xl">
+        <div className="modal-hdr"><h3>🛒 New Purchase Order</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          <div className="form-row-3" style={{marginBottom:16}}>
+            <div className="fg"><label className="fgl">Vendor *</label><input className="fgc" value={header.vendor} onChange={e=>setHeader(h=>({...h,vendor:e.target.value}))} placeholder="Vendor name"/></div>
+            <div className="fg"><label className="fgl">Indent Ref</label><input className="fgc" value={header.indentRef} onChange={e=>setHeader(h=>({...h,indentRef:e.target.value}))} placeholder="IND-001 (optional)"/></div>
+            <div className="fg"><label className="fgl">Payment Terms</label><select className="fgc" value={header.terms} onChange={e=>setHeader(h=>({...h,terms:e.target.value}))}><option>Net 30</option><option>Net 15</option><option>Net 45</option><option>Advance</option><option>COD</option></select></div>
+            <div className="fg"><label className="fgl">Delivery Date</label><input type="date" className="fgc" value={header.deliveryDate} onChange={e=>setHeader(h=>({...h,deliveryDate:e.target.value}))}/></div>
+            <div className="fg"><label className="fgl">Remarks</label><input className="fgc" value={header.remarks} onChange={e=>setHeader(h=>({...h,remarks:e.target.value}))} placeholder="Special instructions"/></div>
+          </div>
+          <div className="mit-wrap">
+            <table><thead><tr><th>Item Code</th><th>Item Name *</th><th>UOM</th><th>Qty</th><th>Rate</th><th>Amount</th><th>GST%</th><th>GST Amt</th><th>Total</th><th></th></tr></thead>
+            <tbody>{items.map(it=>{const c=calc(it);return(
+              <tr key={it.id}>
+                <td><input className="mit-inp" placeholder="RM-001" value={it.itemCode} onChange={e=>updItem(it.id,'itemCode',e.target.value)}/></td>
+                <td><input className="mit-inp" placeholder="Item name" value={it.itemName} onChange={e=>updItem(it.id,'itemName',e.target.value)}/></td>
+                <td><select className="mit-inp" value={it.uom} onChange={e=>updItem(it.id,'uom',e.target.value)} style={{width:70}}><option>PCS</option><option>KG</option><option>MTR</option><option>LTR</option></select></td>
+                <td><input className="mit-inp" type="number" min="0" step="0.01" value={it.qty} onChange={e=>updItem(it.id,'qty',e.target.value)} style={{width:65}}/></td>
+                <td><input className="mit-inp" type="number" min="0" step="0.01" value={it.rate} onChange={e=>updItem(it.id,'rate',e.target.value)} style={{width:80}}/></td>
+                <td><span className="mono">₹{c.amount.toFixed(2)}</span></td>
+                <td><input className="mit-inp" type="number" min="0" max="28" value={it.gstPct} onChange={e=>updItem(it.id,'gstPct',e.target.value)} style={{width:55}}/></td>
+                <td><span className="mono">₹{c.gstAmt.toFixed(2)}</span></td>
+                <td><span className="mono" style={{fontWeight:600}}>₹{c.total.toFixed(2)}</span></td>
+                <td>{items.length>1&&<button className="del-btn" onClick={()=>setItems(i=>i.filter(x=>x.id!==it.id))}>✕</button>}</td>
+              </tr>
+            )})}</tbody></table>
+            <div className="add-row-btn" onClick={addItem}>➕ Add Another Item</div>
+            <div className="mit-footer"><span>Items: <b>{items.length}</b></span><span>Grand Total (incl. GST): <b className="mono" style={{fontSize:16}}>₹{grand.toFixed(2)}</b></span></div>
+          </div>
+        </div>
+        <div className="modal-ftr">
+          <button className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+          <button className="btn btn-primary" onClick={save} disabled={saving}>{saving?'Creating...':'🛒 Create PO'}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GRNForm({ user, closeModal, onSaved }) {
+  const [header, setHeader] = useState({ poNo:'', vendor:'', invoiceNo:'', store:'Store A', remarks:'' });
+  const [items, setItems] = useState([{ id:1, itemCode:'', itemName:'', uom:'PCS', poQty:0, receivedQty:0, rejectedQty:0, rate:0, location:'', batch:'', remarks:'' }]);
+  const [saving, setSaving] = useState(false);
+  const updItem = (id,f,v) => setItems(i=>i.map(x=>x.id===id?{...x,[f]:v,amount:f==='receivedQty'?parseFloat(v||0)*parseFloat(x.rate||0):f==='rate'?parseFloat(x.receivedQty||0)*parseFloat(v||0):((parseFloat(x.receivedQty||0)*parseFloat(x.rate||0)))}:x));
+  const addItem = () => setItems(i=>[...i,{id:Date.now(),itemCode:'',itemName:'',uom:'PCS',poQty:0,receivedQty:0,rejectedQty:0,rate:0,location:'',batch:'',remarks:''}]);
+  const total = items.reduce((s,i)=>s+(parseFloat(i.receivedQty||0)*parseFloat(i.rate||0)),0);
+  const save = async () => {
+    if (!header.vendor) { toast('Enter vendor name','error'); return; }
+    const valid = items.filter(i=>i.itemName.trim()&&parseFloat(i.receivedQty)>0).map(i=>({...i,amount:parseFloat(i.receivedQty||0)*parseFloat(i.rate||0)}));
+    if (!valid.length) { toast('Add items with received quantity > 0','error'); return; }
+    setSaving(true);
+    const r = await apiPost({ action:'saveGRN', header, items:valid, userId:user.id, userName:user.name });
+    setSaving(false);
+    if (r.ok) { toast(r.msg,'success'); onSaved(); } else toast(r.msg,'error');
+  };
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-xl">
+        <div className="modal-hdr"><h3>📥 Material Received (GRN)</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          <div className="form-row-3" style={{marginBottom:16}}>
+            <div className="fg"><label className="fgl">PO Number</label><input className="fgc" value={header.poNo} onChange={e=>setHeader(h=>({...h,poNo:e.target.value}))} placeholder="PO-001 (optional)"/></div>
+            <div className="fg"><label className="fgl">Vendor *</label><input className="fgc" value={header.vendor} onChange={e=>setHeader(h=>({...h,vendor:e.target.value}))} placeholder="Vendor name"/></div>
+            <div className="fg"><label className="fgl">Invoice No</label><input className="fgc" value={header.invoiceNo} onChange={e=>setHeader(h=>({...h,invoiceNo:e.target.value}))} placeholder="Vendor invoice no."/></div>
+            <div className="fg"><label className="fgl">Store Location</label><select className="fgc" value={header.store} onChange={e=>setHeader(h=>({...h,store:e.target.value}))}><option>Store A</option><option>Store B</option><option>Store C</option><option>Raw Material Store</option></select></div>
+            <div className="fg"><label className="fgl">Remarks</label><input className="fgc" value={header.remarks} onChange={e=>setHeader(h=>({...h,remarks:e.target.value}))} placeholder="Any notes"/></div>
+          </div>
+          <div className="mit-wrap">
+            <table><thead><tr><th>Item Code</th><th>Item Name *</th><th>UOM</th><th>PO Qty</th><th>Received *</th><th>Rejected</th><th>Rate</th><th>Amount</th><th>Location</th><th>Batch</th><th></th></tr></thead>
+            <tbody>{items.map(it=>(
+              <tr key={it.id}>
+                <td><input className="mit-inp" placeholder="RM-001" value={it.itemCode} onChange={e=>updItem(it.id,'itemCode',e.target.value)}/></td>
+                <td><input className="mit-inp" placeholder="Item name" value={it.itemName} onChange={e=>updItem(it.id,'itemName',e.target.value)}/></td>
+                <td><select className="mit-inp" value={it.uom} onChange={e=>updItem(it.id,'uom',e.target.value)} style={{width:65}}><option>PCS</option><option>KG</option><option>MTR</option><option>LTR</option></select></td>
+                <td><input className="mit-inp" type="number" min="0" value={it.poQty} onChange={e=>updItem(it.id,'poQty',e.target.value)} style={{width:60}}/></td>
+                <td><input className="mit-inp" type="number" min="0" value={it.receivedQty} onChange={e=>updItem(it.id,'receivedQty',e.target.value)} style={{width:65}}/></td>
+                <td><input className="mit-inp" type="number" min="0" value={it.rejectedQty} onChange={e=>updItem(it.id,'rejectedQty',e.target.value)} style={{width:60}}/></td>
+                <td><input className="mit-inp" type="number" min="0" step="0.01" value={it.rate} onChange={e=>updItem(it.id,'rate',e.target.value)} style={{width:75}}/></td>
+                <td><span className="mono">₹{(parseFloat(it.receivedQty||0)*parseFloat(it.rate||0)).toFixed(2)}</span></td>
+                <td><input className="mit-inp" placeholder="Store A" value={it.location} onChange={e=>updItem(it.id,'location',e.target.value)} style={{width:75}}/></td>
+                <td><input className="mit-inp" placeholder="BAT-001" value={it.batch} onChange={e=>updItem(it.id,'batch',e.target.value)} style={{width:75}}/></td>
+                <td>{items.length>1&&<button className="del-btn" onClick={()=>setItems(i=>i.filter(x=>x.id!==it.id))}>✕</button>}</td>
+              </tr>
+            ))}</tbody></table>
+            <div className="add-row-btn" onClick={addItem}>➕ Add Another Item</div>
+            <div className="mit-footer"><span>Total Received: <b className="mono" style={{fontSize:16}}>₹{total.toFixed(2)}</b></span></div>
+          </div>
+          <div className="warn-box" style={{marginTop:12}}>⚠ Inventory stock will be automatically updated after saving</div>
+        </div>
+        <div className="modal-ftr">
+          <button className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+          <button className="btn btn-success" onClick={save} disabled={saving}>{saving?'Saving...':'📥 Save GRN & Update Inventory'}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── ADD USER MODAL ────────────────────────────────────
+function AddUserModal({ user, closeModal, onSaved }) {
+  const [form, setForm] = useState({ fullName:'', username:'', password:'', email:'', phone:'', dept:'Production', designation:'', role:'Viewer', level:'2', modules:'INVENTORY' });
+  const [saving, setSaving] = useState(false);
+  const autoGen = (name) => {
+    const parts = name.trim().split(' ');
+    const un = (parts[0]+(parts[1]?'.'+parts[1]:'')).toLowerCase().replace(/[^a-z.]/g,'');
+    const pw = parts[0].charAt(0).toUpperCase()+parts[0].slice(1).toLowerCase()+'@123';
+    return { username: un, password: pw };
+  };
+  const save = async () => {
+    if (!form.fullName || !form.email) { toast('Name and email required','error'); return; }
+    setSaving(true);
+    const r = await apiPost({ action:'addUser', userData:form, adminId:user.id, adminName:user.name });
+    setSaving(false);
+    if (r.ok) { toast('User created! Credentials sent to '+form.email,'success'); onSaved(); }
+    else toast(r.msg,'error');
+  };
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-md">
+        <div className="modal-hdr"><h3>➕ Add New User</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          <div className="form-row">
+            <div className="fg"><label className="fgl">Full Name *</label><input className="fgc" value={form.fullName} onChange={e=>{const g=autoGen(e.target.value);setForm(f=>({...f,fullName:e.target.value,...g}));}} placeholder="First Last"/></div>
+            <div className="fg"><label className="fgl">Username (auto)</label><input className="fgc" value={form.username} onChange={e=>setForm(f=>({...f,username:e.target.value}))} /></div>
+            <div className="fg"><label className="fgl">Password (auto)</label><input className="fgc" value={form.password} onChange={e=>setForm(f=>({...f,password:e.target.value}))} /></div>
+            <div className="fg"><label className="fgl">Email *</label><input type="email" className="fgc" value={form.email} onChange={e=>setForm(f=>({...f,email:e.target.value}))} placeholder="user@company.com"/></div>
+            <div className="fg"><label className="fgl">Phone</label><input className="fgc" value={form.phone} onChange={e=>setForm(f=>({...f,phone:e.target.value}))} placeholder="9876543210"/></div>
+            <div className="fg"><label className="fgl">Department</label><select className="fgc" value={form.dept} onChange={e=>setForm(f=>({...f,dept:e.target.value}))}><option>Production</option><option>Purchase</option><option>Sales</option><option>Finance</option><option>HR</option><option>Quality</option><option>IT</option></select></div>
+            <div className="fg"><label className="fgl">Designation</label><input className="fgc" value={form.designation} onChange={e=>setForm(f=>({...f,designation:e.target.value}))} placeholder="e.g. Manager"/></div>
+            <div className="fg"><label className="fgl">Role</label><select className="fgc" value={form.role} onChange={e=>setForm(f=>({...f,role:e.target.value,level:{'Super Admin':'5','Manager':'3','Viewer':'2','Limited':'2'}[e.target.value]||'2'}))}><option>Viewer</option><option>Limited</option><option>Manager</option><option>Super Admin</option></select></div>
+          </div>
+          <div className="fg"><label className="fgl">Module Access (comma sep., or ALL)</label><input className="fgc" value={form.modules} onChange={e=>setForm(f=>({...f,modules:e.target.value}))} placeholder="PRODUCTION,INVENTORY or ALL"/></div>
+          <div className="info-box" style={{marginTop:12}}>💡 Login credentials will be auto-emailed to the user's registered email</div>
+        </div>
+        <div className="modal-ftr">
+          <button className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+          <button className="btn btn-primary" onClick={save} disabled={saving}>{saving?'Creating...':'➕ Create User & Send Email'}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── GEN CREDS MODAL ───────────────────────────────────
+function GenCredsModal({ closeModal }) {
+  const [name, setName] = useState('');
+  const gen = useMemo(() => {
+    if (!name.trim()) return null;
+    const p = name.trim().split(' ');
+    return { username:(p[0]+(p[1]?'.'+p[1]:'')).toLowerCase().replace(/[^a-z.]/g,''), password:p[0].charAt(0).toUpperCase()+p[0].slice(1).toLowerCase()+'@123' };
+  }, [name]);
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
+      <div className="modal modal-sm">
+        <div className="modal-hdr"><h3>🔑 Generate Credentials</h3><button className="btn btn-ghost btn-sm btn-icon" onClick={closeModal}>✕</button></div>
+        <div className="modal-body">
+          <div className="fg"><label className="fgl">Employee Full Name</label><input className="fgc" value={name} onChange={e=>setName(e.target.value)} placeholder="First Last"/></div>
+          {gen && <div className="info-box">
+            <div>👤 <b>Username:</b> <span className="mono">{gen.username}</span></div>
+            <div style={{marginTop:6}}>🔐 <b>Password:</b> <span className="mono">{gen.password}</span></div>
+          </div>}
+        </div>
+        <div className="modal-ftr"><button className="btn btn-ghost" onClick={closeModal}>Close</button></div>
+      </div>
+    </div>
+  );
+}
+
+// ── RENDER ────────────────────────────────────────────
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
