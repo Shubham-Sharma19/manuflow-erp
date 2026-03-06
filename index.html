@@ -315,10 +315,11 @@ async function apiFetch(params) {
 }
 
 async function apiPost(body) {
-  // Apps Script CORS fix — encode payload as GET parameter
+  // Apps Script CORS fix: encode as GET query params (most reliable)
   const url = new URL(API_URL);
-  url.searchParams.set('payload', JSON.stringify(body));
+  url.searchParams.set('method', 'POST');
   url.searchParams.set('action', body.action || '');
+  url.searchParams.set('data', JSON.stringify(body));
   const r = await fetch(url.toString());
   return r.json();
 }
