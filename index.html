@@ -315,11 +315,11 @@ async function apiFetch(params) {
 }
 
 async function apiPost(body) {
-  const r = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+  // Apps Script CORS fix — encode payload as GET parameter
+  const url = new URL(API_URL);
+  url.searchParams.set('payload', JSON.stringify(body));
+  url.searchParams.set('action', body.action || '');
+  const r = await fetch(url.toString());
   return r.json();
 }
 
